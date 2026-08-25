@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SponsorCard from '../components/SponsorCard.astro';
+import sponsorsData from '../data/sponsors.json';
+import site from '../data/site.json';
+
+const platinum = sponsorsData.sponsors.filter((s) => s.tier === 'platinum');
+const gold = sponsorsData.sponsors.filter((s) => s.tier === 'gold');
+---
+
+<BaseLayout title="Sponsors" description="Thank you to our club sponsors who help keep CNHSC trails groomed and safe.">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <h1 class="text-3xl font-bold text-slate-900">Club Sponsors</h1>
+    <p class="mt-3 max-w-3xl leading-relaxed text-slate-600">{sponsorsData.intro}</p>
+
+    <section class="mt-10">
+      <h2 class="text-xl font-semibold text-slate-900">Platinum Sponsors</h2>
+      <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {platinum.map((sponsor) => <SponsorCard name={sponsor.name} tier="platinum" url={sponsor.url} />)}
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-xl font-semibold text-slate-900">Gold Sponsors</h2>
+      <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {gold.map((sponsor) => <SponsorCard name={sponsor.name} tier="gold" url={sponsor.url} />)}
+      </div>
+    </section>
+
+    <section class="mt-12 rounded-2xl bg-slate-900 p-8 text-white">
+      <h2 class="text-xl font-semibold">Become a Sponsor</h2>
+      <div class="mt-6 grid gap-6 md:grid-cols-2">
+        {
+          sponsorsData.tiers.map((tier) => (
+            <div class="rounded-xl bg-slate-800 p-5">
+              <h3 class="font-semibold text-sky-300">{tier.name}</h3>
+              <p class="mt-1 text-2xl font-bold">${tier.amount}/year</p>
+              <ul class="mt-4 space-y-2 text-sm text-slate-300">
+                {tier.benefits.map((benefit) => (
+                  <li>• {benefit}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-6 text-sm text-slate-300">
+        Interested in sponsoring? Contact us at{' '}
+        <a href={`mailto:${site.contact.email}`} class="font-medium text-sky-300 hover:text-white">
+          {site.contact.email}
+        </a>
+        .
+      </p>
+    </section>
+  </div>
+</BaseLayout>

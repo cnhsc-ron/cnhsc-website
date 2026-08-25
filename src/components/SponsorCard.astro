@@ -1,0 +1,29 @@
+---
+interface Props {
+  name: string;
+  tier: 'platinum' | 'gold';
+  url?: string | null;
+}
+
+const { name, tier, url } = Astro.props;
+
+const tierStyles = {
+  platinum: 'border-amber-300 bg-amber-50',
+  gold: 'border-slate-300 bg-white',
+};
+---
+
+<div class={`rounded-lg border-2 p-5 ${tierStyles[tier]}`}>
+  <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">{tier} sponsor</p>
+  <h3 class="mt-1 text-lg font-semibold text-slate-900">
+    {
+      url ? (
+        <a href={url} target="_blank" rel="noopener noreferrer" class="hover:text-sky-700">
+          {name}
+        </a>
+      ) : (
+        name
+      )
+    }
+  </h3>
+</div>

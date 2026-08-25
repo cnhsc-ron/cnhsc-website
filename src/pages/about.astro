@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import site from '../data/site.json';
+
+const foundedYear = new Date(site.founded).getFullYear();
+---
+
+<BaseLayout title="About">
+  <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+    <h1 class="text-3xl font-bold text-slate-900">About {site.shortName}</h1>
+
+    <div class="prose-content mt-6 text-slate-700">
+      <p>
+        The Central New Hampshire Snowmobile Club was founded on July 24, {foundedYear}. We maintain approximately
+        90–100 miles of snowmobile trails throughout {site.towns.join(', ')}, New Hampshire — covering the southern
+        tip of the White Mountain National Forest.
+      </p>
+      <p>
+        Our club operates grooming equipment to keep trails in top condition for riders. Trails are maintained
+        year-round to clear debris, making winter grooming more effective. We could not do this work without our
+        members, volunteers, landowners, and sponsors.
+      </p>
+      <p>{site.trailReportSchedule} Groomers typically run in the evening, so posted conditions may reflect the prior night's work.</p>
+      <p>
+        <strong>Ride safe, ride within your limits, and please stay on your side of the trails.</strong>
+      </p>
+    </div>
+
+    <section class="mt-10 grid gap-4 sm:grid-cols-2">
+      <a
+        href={site.links.membership}
+        class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:border-sky-200"
+      >
+        <h2 class="font-semibold text-slate-900">Membership</h2>
+        <p class="mt-2 text-sm text-slate-600">Join or renew through the NHSA online portal.</p>
+      </a>
+      <a href="/sponsors/" class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm hover:border-sky-200">
+        <h2 class="font-semibold text-slate-900">Sponsors & Donations</h2>
+        <p class="mt-2 text-sm text-slate-600">Support trail maintenance through club sponsorship.</p>
+      </a>
+    </section>
+  </div>
+</BaseLayout>

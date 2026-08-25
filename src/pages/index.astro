@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TrailReportCard from '../components/TrailReportCard.astro';
+import { getCollection } from 'astro:content';
+import site from '../data/site.json';
+
+const reports = (await getCollection('trail-reports')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const latestReport = reports[0];
+---
+
+<BaseLayout>
+  <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-sky-900 text-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+      <p class="text-sm font-semibold uppercase tracking-[0.25em] text-sky-300">Welcome</p>
+      <h1 class="mt-3 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
+        {site.name}
+      </h1>
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-slate-200">{site.tagline}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="/trail-reports/"
+          class="rounded-lg bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-sky-400"
+        >
+          Latest Trail Reports
+        </a>
+        <a
+          href={site.links.membership}
+          class="rounded-lg border border-white/30 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10"
+        >
+          Join / Renew
+        </a>
+        <a
+          href={site.social.facebook}
+          class="rounded-lg border border-white/30 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10"
+        >
+          Facebook
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {
+    latestReport && (
+      <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900">Latest Trail Update</h2>
+            <p class="mt-1 text-sm text-slate-600">{site.trailReportSchedule}</p>
+          </div>
+          <a href="/trail-reports/" class="hidden text-sm font-medium text-sky-700 hover:text-sky-900 sm:block">
+            View all →
+          </a>
+        </div>
+        <div class="mt-6 max-w-2xl">
+          <TrailReportCard
+            title={latestReport.data.title}
+            date={latestReport.data.date}
+            href={`/trail-reports/${latestReport.id}/`}
+            status={latestReport.data.status}
+          />
+        </div>
+      </section>
+    )
+  }
+
+  <section class="bg-white py-12">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <h2 class="text-2xl font-bold text-slate-900">Club Announcements</h2>
+      <ul class="mt-6 grid gap-4 md:grid-cols-2">
+        {
+          site.announcements.map((item) => (
+            <li class="rounded-xl border border-slate-200 bg-slate-50 p-5">
+              <time datetime={item.date} class="text-sm text-slate-500">
+                {new Date(item.date).toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
+              </time>
+              <h3 class="mt-1 font-semibold text-slate-900">{item.title}</h3>
+              <p class="mt-2 text-sm text-slate-600">{item.summary}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <div class="rounded-2xl bg-sky-50 p-8 ring-1 ring-sky-100">
+      <h2 class="text-xl font-bold text-slate-900">Ride Central New Hampshire</h2>
+      <p class="mt-3 max-w-3xl leading-relaxed text-slate-700">{site.description}</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="/about/" class="text-sm font-medium text-sky-700 hover:text-sky-900">About the club →</a>
+        <a href={site.links.trailMap} class="text-sm font-medium text-sky-700 hover:text-sky-900">
+          Statewide trail map →
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

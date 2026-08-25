@@ -1,0 +1,39 @@
+{
+  "name": "Central New Hampshire Snowmobile Club",
+  "shortName": "CNHSC",
+  "tagline": "Maintaining nearly 100 miles of trails in Campton, Ellsworth, and Thornton, NH",
+  "description": "The Central New Hampshire Snowmobile Club trails cover the southern tip of the White Mountain National Forest. Access trails from Interstate 93 Exits 28, 29, and 30, just north of Plymouth, New Hampshire.",
+  "founded": "1972-07-24",
+  "contact": {
+    "email": "Ride@CNHSC.org",
+    "mailingAddress": {
+      "name": "Central New Hampshire Snowmobile Club",
+      "line1": "PO Box 1315",
+      "city": "Campton",
+      "state": "NH",
+      "zip": "03223"
+    }
+  },
+  "social": {
+    "facebook": "https://www.facebook.com/CentralNHSnowmobileClub"
+  },
+  "links": {
+    "membership": "https://www.nhsa.com/",
+    "trailMap": "https://www.slednh.com/",
+    "nhsa": "https://www.nhsa.com/"
+  },
+  "trailReportSchedule": "Trail conditions are posted every Thursday during riding season.",
+  "towns": ["Campton", "Ellsworth", "Thornton"],
+  "announcements": [
+    {
+      "title": "Monthly Meeting — April 9, 2026",
+      "date": "2026-04-09",
+      "summary": "All members welcome at our monthly club meeting."
+    },
+    {
+      "title": "2026 Election of Officers",
+      "date": "2026-03-01",
+      "summary": "Officer elections held at the March club meeting."
+    }
+  ]
+}

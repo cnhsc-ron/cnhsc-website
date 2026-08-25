@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+.prose-content :where(p) {
+  margin-top: 1rem;
+  line-height: 1.7;
+}
+
+.prose-content :where(p:first-child) {
+  margin-top: 0;
+}

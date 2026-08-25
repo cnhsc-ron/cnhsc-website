@@ -1,0 +1,42 @@
+{
+  "intro": "Sponsorship fees help the club with supplies, fuel, equipment, and groomer maintenance. We are grateful for your support!",
+  "tiers": [
+    {
+      "id": "platinum",
+      "name": "Platinum Sponsor",
+      "amount": 500,
+      "benefits": [
+        "Rotating ad on all web pages and the sponsors page",
+        "One week per month featured on trail reports shared on Facebook and the website"
+      ]
+    },
+    {
+      "id": "gold",
+      "name": "Gold Sponsor",
+      "amount": 250,
+      "benefits": [
+        "Logo and link on the club sponsors page"
+      ]
+    }
+  ],
+  "sponsors": [
+    {
+      "name": "Example Business (Platinum)",
+      "tier": "platinum",
+      "url": "https://example.com",
+      "logo": null
+    },
+    {
+      "name": "Local Shop (Gold)",
+      "tier": "gold",
+      "url": "https://example.com",
+      "logo": null
+    },
+    {
+      "name": "Trail Supporter (Gold)",
+      "tier": "gold",
+      "url": null,
+      "logo": null
+    }
+  ]
+}

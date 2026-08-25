@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TrailReportCard from '../../components/TrailReportCard.astro';
+import { getCollection } from 'astro:content';
+
+const reports = (await getCollection('trail-reports')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Trail Reports" description="Current trail conditions for CNHSC trails in Campton, Ellsworth, and Thornton, NH.">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <h1 class="text-3xl font-bold text-slate-900">Trail Reports</h1>
+    <p class="mt-2 max-w-2xl text-slate-600">
+      Conditions are updated during riding season, typically on Thursdays. Always ride within your limits and stay on
+      marked trails.
+    </p>
+
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        reports.map((report) => (
+          <TrailReportCard
+            title={report.data.title}
+            date={report.data.date}
+            href={`/trail-reports/${report.id}/`}
+            status={report.data.status}
+          />
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
