@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import TrailReportCard from '../components/TrailReportCard.astro';
 import { getCollection } from 'astro:content';
 import site from '../data/site.json';
+import headerBanner from '../images/HeaderBanner1.jpg';
 
 const reports = (await getCollection('trail-reports')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -11,8 +12,12 @@ const latestReport = reports[0];
 ---
 
 <BaseLayout>
-  <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-sky-900 text-white">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
+  <section
+    class="relative overflow-hidden bg-slate-900 bg-cover bg-center bg-no-repeat text-white"
+    style={{ backgroundImage: `url(${headerBanner.src})` }}
+  >
+    <div class="absolute inset-0 bg-slate-900/55" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
       <p class="text-sm font-semibold uppercase tracking-[0.25em] text-sky-300">Welcome</p>
       <h1 class="mt-3 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
         {site.name}

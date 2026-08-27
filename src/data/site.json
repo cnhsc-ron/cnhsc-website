@@ -19,7 +19,8 @@
   },
   "links": {
     "membership": "http://slednh.tfaforms.net/5075630?tfa_9=001Do00000I52idIAB",
-    "nhsa": "https://www.slednh.com/"
+    "nhsa": "https://www.slednh.com/",
+    "trailMap": "https://slednh.evtrails.com/#"
   },
   "trailReportSchedule": "Trail conditions are posted every Thursday during riding season.",
   "towns": ["Campton", "Ellsworth", "Thornton"],
