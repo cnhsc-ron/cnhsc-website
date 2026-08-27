@@ -1,5 +1,6 @@
 ---
 import site from '../data/site.json';
+import logo from '../images/CNHSC_Logo_Transparent_Trimmed_XtraSmall.png';
 
 const nav = [
   { href: '/trail-reports/', label: 'Trails' },
@@ -11,9 +12,18 @@ const nav = [
 
 <header class="bg-slate-900 text-white shadow-md">
   <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-    <a href="/" class="group">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-sky-300">{site.shortName}</p>
-      <p class="text-lg font-bold leading-tight group-hover:text-sky-200 sm:text-xl">{site.name}</p>
+    <a href="/" class="group flex items-center gap-2.5">
+      <img
+        src={logo.src}
+        alt=""
+        width={logo.width}
+        height={logo.height}
+        class="h-[2.5rem] w-auto shrink-0 object-contain sm:h-[2.75rem]"
+      />
+      <div class="leading-tight">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-sky-300">{site.shortName}</p>
+        <p class="text-lg font-bold group-hover:text-sky-200 sm:text-xl">{site.name}</p>
+      </div>
     </a>
     <nav aria-label="Main navigation">
       <ul class="flex flex-wrap gap-1 sm:gap-2">
