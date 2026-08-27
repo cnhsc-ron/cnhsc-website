@@ -15,12 +15,11 @@
     }
   },
   "social": {
-    "facebook": "https://www.facebook.com/CentralNHSnowmobileClub"
+    "facebook": "https://www.facebook.com/CNHSC/"
   },
   "links": {
-    "membership": "https://www.nhsa.com/",
-    "trailMap": "https://www.slednh.com/",
-    "nhsa": "https://www.nhsa.com/"
+    "membership": "http://slednh.tfaforms.net/5075630?tfa_9=001Do00000I52idIAB",
+    "nhsa": "https://www.slednh.com/"
   },
   "trailReportSchedule": "Trail conditions are posted every Thursday during riding season.",
   "towns": ["Campton", "Ellsworth", "Thornton"],
