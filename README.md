@@ -34,6 +34,13 @@ src/
 3. Edit the frontmatter (`title`, `date`, `status`, `trails`, etc.) and body text
 4. Commit and push — the site rebuilds automatically once deployed
 
+### News article
+
+1. Copy an existing file in `src/content/news/` (for example, `2026-08-15-season-update.md`)
+2. Rename it with the article date and a short slug (for example, `2026-08-29-club-meeting.md`)
+3. Edit the frontmatter (`title`, `date`, `excerpt`) and the body copy below it
+4. Commit and push — the new article will appear on the News listing and get its own page automatically
+
 ### Sponsors
 
 Edit `src/data/sponsors.json` — add or update entries in the `sponsors` array.
