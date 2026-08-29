@@ -21,4 +21,14 @@ const trailReports = defineCollection({
   }),
 });
 
-export const collections = { 'trail-reports': trailReports };
+const news = defineCollection({
+  loader: glob({ base: './src/content/news', pattern: '**/*.md' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.coerce.date(),
+    category: z.literal('news').default('news'),
+    excerpt: z.string().optional(),
+  }),
+});
+
+export const collections = { 'trail-reports': trailReports, news };

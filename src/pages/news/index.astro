@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import { getCollection } from 'astro:content';
+
+const newsItems = (await getCollection('news')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="News" description="Club updates, events, and community news from CNHSC.">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <h1 class="text-3xl font-bold text-slate-900">News</h1>
+    <p class="mt-2 max-w-2xl text-slate-600">
+      Updates from the club, upcoming events, and the latest community news from the trails.
+    </p>
+
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        newsItems.map((item) => (
+          <NewsCard
+            title={item.data.title}
+            date={item.data.date}
+            href={`/news/${item.id}/`}
+            excerpt={item.data.excerpt}
+          />
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

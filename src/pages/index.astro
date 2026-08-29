@@ -31,6 +31,12 @@ const latestReport = reports[0];
           Latest Trail Reports
         </a>
         <a
+          href="/news/"
+          class="rounded-lg border border-white/30 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10"
+        >
+          Latest News
+        </a>
+        <a
           href={site.links.membership}
           class="rounded-lg border border-white/30 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10"
         >
@@ -46,7 +52,7 @@ const latestReport = reports[0];
     </div>
   </section>
 
-  {
+  <!-- {
     latestReport && (
       <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div class="flex items-end justify-between gap-4">
@@ -68,8 +74,21 @@ const latestReport = reports[0];
         </div>
       </section>
     )
-  }
+  } -->
 
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <div class="rounded-2xl bg-sky-50 p-8 ring-1 ring-sky-100">
+      <h2 class="text-xl font-bold text-slate-900">Ride Central New Hampshire</h2>
+      <p class="mt-3 max-w-3xl leading-relaxed text-slate-700">{site.description}</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="/about/" class="text-sm font-medium text-sky-700 hover:text-sky-900">About the club →</a>
+        <a href={site.links.trailMap} class="text-sm font-medium text-sky-700 hover:text-sky-900">
+          Statewide trail map →
+        </a>
+      </div>
+    </div>
+  </section>
+  
   <section class="bg-white py-12">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <h2 class="text-2xl font-bold text-slate-900">Club Announcements</h2>
@@ -93,16 +112,5 @@ const latestReport = reports[0];
     </div>
   </section>
 
-  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-    <div class="rounded-2xl bg-sky-50 p-8 ring-1 ring-sky-100">
-      <h2 class="text-xl font-bold text-slate-900">Ride Central New Hampshire</h2>
-      <p class="mt-3 max-w-3xl leading-relaxed text-slate-700">{site.description}</p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        <a href="/about/" class="text-sm font-medium text-sky-700 hover:text-sky-900">About the club →</a>
-        <a href={site.links.trailMap} class="text-sm font-medium text-sky-700 hover:text-sky-900">
-          Statewide trail map →
-        </a>
-      </div>
-    </div>
-  </section>
+  
 </BaseLayout>
