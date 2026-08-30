@@ -1,0 +1,277 @@
+---
+interface Slide {
+  image: string;
+  alt: string;
+  title?: string;
+  subtitle?: string;
+  link?: string;
+  buttonText?: string;
+}
+
+interface Props {
+  slides: Slide[];
+  variant?: 'hero' | 'logo';
+  autoplay?: boolean;
+  interval?: number;
+  showControls?: boolean;
+}
+
+const { slides, variant = 'hero', autoplay = true, interval = 5000, showControls = true } = Astro.props;
+---
+
+<div class={`carousel carousel--${variant}`} data-carousel data-autoplay={String(autoplay)} data-interval={String(interval)}>
+  <div class="carousel__viewport">
+    {
+      slides.map((slide, index) => (
+        <div class={`carousel__slide ${index === 0 ? 'is-active' : ''}`} data-slide>
+          {slide.link ? (
+            <a href={slide.link} class="block h-full w-full" target={slide.link.startsWith('http') ? '_blank' : undefined} rel={slide.link.startsWith('http') ? 'noreferrer' : undefined}>
+              <div class="carousel__frame carousel__frame--image relative overflow-hidden bg-slate-900">
+                <img src={slide.image} alt={slide.alt} class="carousel__image" />
+                <div class="absolute inset-0 bg-slate-950/45" aria-hidden="true" />
+                {variant === 'hero' && (
+                  <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-10">
+                    <div class="max-w-2xl rounded-2xl border border-white/20 bg-slate-950/25 p-4 backdrop-blur-sm sm:p-6">
+                      {slide.title && <h3 class="text-xl font-bold text-white sm:text-2xl lg:text-3xl">{slide.title}</h3>}
+                      {slide.subtitle && <p class="mt-2 text-sm text-slate-200 sm:text-base">{slide.subtitle}</p>}
+                      {slide.buttonText && (
+                        <span class="mt-4 inline-flex rounded-lg bg-sky-500 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-400">
+                          {slide.buttonText}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+                {variant === 'logo' && (
+                  <div class="absolute inset-0 flex items-center justify-center p-6">
+                    <div class="w-full max-w-md rounded-2xl border border-slate-200 bg-white/90 p-6 text-center shadow-lg backdrop-blur-sm">
+                      <img src={slide.image} alt={slide.alt} class="carousel__logo" />
+                      {slide.title && <p class="mt-3 text-lg font-semibold text-slate-900">{slide.title}</p>}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </a>
+          ) : (
+            <div class="carousel__frame carousel__frame--image relative overflow-hidden bg-slate-900">
+              <img src={slide.image} alt={slide.alt} class="carousel__image" />
+              <div class="absolute inset-0 bg-slate-950/45" aria-hidden="true" />
+              {variant === 'hero' && (
+                <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-10">
+                  <div class="max-w-2xl rounded-2xl border border-white/20 bg-slate-950/25 p-4 backdrop-blur-sm sm:p-6">
+                    {slide.title && <h3 class="text-xl font-bold text-white sm:text-2xl lg:text-3xl">{slide.title}</h3>}
+                    {slide.subtitle && <p class="mt-2 text-sm text-slate-200 sm:text-base">{slide.subtitle}</p>}
+                  </div>
+                </div>
+              )}
+              {variant === 'logo' && (
+                <div class="absolute inset-0 flex items-center justify-center p-6">
+                  <div class="w-full max-w-md rounded-2xl border border-slate-200 bg-white/90 p-6 text-center shadow-lg backdrop-blur-sm">
+                    <img src={slide.image} alt={slide.alt} class="carousel__logo" />
+                    {slide.title && <p class="mt-3 text-lg font-semibold text-slate-900">{slide.title}</p>}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </div>
+
+  {showControls && (
+    <div class="carousel__controls" aria-label="Carousel controls">
+      <button type="button" class="carousel__button" data-prev aria-label="Previous slide">←</button>
+      <button type="button" class="carousel__button" data-next aria-label="Next slide">→</button>
+    </div>
+  )}
+
+  <div class="carousel__dots" aria-label="Slide navigation">
+    {
+      slides.map((_, index) => (
+        <button
+          type="button"
+          class={`carousel__dot ${index === 0 ? 'is-active' : ''}`}
+          data-dot={index}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const carousels = document.querySelectorAll('[data-carousel]');
+
+  carousels.forEach((carousel) => {
+    const slides = Array.from(carousel.querySelectorAll('[data-slide]'));
+    const dots = Array.from(carousel.querySelectorAll('[data-dot]'));
+    const prevButton = carousel.querySelector('[data-prev]');
+    const nextButton = carousel.querySelector('[data-next]');
+    const autoplay = carousel.dataset.autoplay === 'true';
+    const interval = Number(carousel.dataset.interval || 5000);
+
+    let activeIndex = 0;
+    let autoplayTimer: number | undefined;
+
+    const updateCarousel = (nextIndex: number) => {
+      activeIndex = (nextIndex + slides.length) % slides.length;
+
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('is-active', index === activeIndex);
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('is-active', index === activeIndex);
+      });
+    };
+
+    const clearAutoplay = () => {
+      if (autoplayTimer) {
+        window.clearInterval(autoplayTimer);
+      }
+    };
+
+    const startAutoplay = () => {
+      if (!autoplay || slides.length < 2) {
+        return;
+      }
+
+      clearAutoplay();
+      autoplayTimer = window.setInterval(() => {
+        updateCarousel(activeIndex + 1);
+      }, interval);
+    };
+
+    prevButton?.addEventListener('click', () => {
+      updateCarousel(activeIndex - 1);
+      startAutoplay();
+    });
+
+    nextButton?.addEventListener('click', () => {
+      updateCarousel(activeIndex + 1);
+      startAutoplay();
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        updateCarousel(Number(dot.dataset.dot || 0));
+        startAutoplay();
+      });
+    });
+
+    startAutoplay();
+  });
+</script>
+
+<style>
+  .carousel {
+    position: relative;
+    width: 100%;
+  }
+
+  .carousel__viewport {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+  }
+
+  .carousel__frame {
+    width: 100%;
+    overflow: hidden;
+    background: #0f172a;
+  }
+
+  .carousel__frame--image {
+    aspect-ratio: 24 / 9;
+  }
+
+  .carousel__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .carousel__logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 5rem;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+  .carousel__slide {
+    display: none;
+    width: 100%;
+  }
+
+  .carousel__slide.is-active {
+    display: block;
+  }
+
+  .carousel__controls {
+    position: absolute;
+    inset-inline: 1rem;
+    top: 50%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .carousel__button {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(15, 23, 42, 0.45);
+    color: white;
+    font-weight: 700;
+    transition: background 0.2s ease;
+  }
+
+  .carousel__button:hover {
+    background: rgba(15, 23, 42, 0.7);
+  }
+
+  .carousel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+  }
+
+  .carousel__dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+    border: none;
+    background: rgb(148 163 184);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .carousel__dot.is-active {
+    width: 2rem;
+    background: rgb(14 165 233);
+  }
+
+  .carousel--logo .carousel__viewport {
+    border: 1px solid rgb(226 232 240);
+    background: rgb(248 250 252);
+  }
+
+  .carousel--logo .carousel__frame--image {
+    aspect-ratio: 7 / 2;
+  }
+
+  .carousel--logo .carousel__logo {
+    max-height: 4.5rem;
+  }
+</style>

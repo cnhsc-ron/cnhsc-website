@@ -1,0 +1,30 @@
+[
+  {
+    "image": "https://placehold.co/600x180/0f172a/ffffff?text=Sponsor+1",
+    "alt": "Sponsor 1 placeholder logo",
+    "title": "Sponsor 1",
+    "link": "https://example.com",
+    "buttonText": "Visit sponsor"
+  },
+  {
+    "image": "https://placehold.co/600x180/1d4ed8/ffffff?text=Sponsor+2",
+    "alt": "Sponsor 2 placeholder logo",
+    "title": "Sponsor 2",
+    "link": "https://example.com",
+    "buttonText": "Visit sponsor"
+  },
+  {
+    "image": "https://placehold.co/600x180/065f46/ffffff?text=Sponsor+3",
+    "alt": "Sponsor 3 placeholder logo",
+    "title": "Sponsor 3",
+    "link": "https://example.com",
+    "buttonText": "Visit sponsor"
+  },
+  {
+    "image": "https://placehold.co/600x180/7c2d12/ffffff?text=Sponsor+4",
+    "alt": "Sponsor 4 placeholder logo",
+    "title": "Sponsor 4",
+    "link": "https://example.com",
+    "buttonText": "Visit sponsor"
+  }
+]

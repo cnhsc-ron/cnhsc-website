@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SponsorCard from '../components/SponsorCard.astro';
+import ImageCarousel from '../components/ImageCarousel.astro';
 import sponsorsData from '../data/sponsors.json';
+import sponsorSlides from '../data/sponsor-slides.json';
 import site from '../data/site.json';
 
 const platinum = sponsorsData.sponsors.filter((s) => s.tier === 'platinum');
@@ -10,6 +12,10 @@ const gold = sponsorsData.sponsors.filter((s) => s.tier === 'gold');
 
 <BaseLayout title="Sponsors" description="Thank you to our club sponsors who help keep CNHSC trails groomed and safe.">
   <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    <div class="mb-8">
+      <ImageCarousel slides={sponsorSlides} variant="logo" autoplay={true} interval={4000} showControls={true} />
+    </div>
+
     <h1 class="text-3xl font-bold text-slate-900">Club Sponsors</h1>
     <p class="mt-3 max-w-3xl leading-relaxed text-slate-600">{sponsorsData.intro}</p>
 
