@@ -3,11 +3,12 @@ import site from '../data/site.json';
 import logo from '../images/logos/CNHSC_Logo_Transparent_Trimmed_XtraSmall.png';
 
 const nav = [
-  { href: site.links.membership, label: 'Join' },
+  { href: site.links.membership, label: 'Join', external: true },
   { href: '/trail-reports/', label: 'Trails' },
   { href: '/news/', label: 'News' },
   { href: '/sponsors/', label: 'Sponsors' },
   { href: '/about/', label: 'About' },
+  { href: site.social.facebook, label: 'Facebook', external: true, icon: 'facebook' },
 ];
 ---
 
@@ -29,16 +30,38 @@ const nav = [
     <nav aria-label="Main navigation">
       <ul class="flex flex-wrap gap-1 sm:gap-2">
         {
-          nav.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                class="block rounded-md px-3 py-2 text-sm font-medium text-slate-200 transition hover:bg-slate-800 hover:text-white"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))
+          nav.map((item) => {
+            const isIconLink = item.icon === 'facebook';
+
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  target={item.external ? '_blank' : undefined}
+                  rel={item.external ? 'noopener noreferrer' : undefined}
+                  aria-label={item.label}
+                  class={`inline-flex items-center justify-center px-3 py-2 text-sm font-medium transition ${
+                    isIconLink
+                      ? 'h-10 w-10 rounded-full bg-[#1877F2] p-0 text-white shadow-sm hover:bg-[#166fe5] hover:text-white'
+                      : 'rounded-md text-slate-200 hover:bg-slate-800 hover:text-white'
+                  }`}
+                >
+                  {isIconLink ? (
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      focusable="false"
+                      class="h-5 w-5 fill-current"
+                    >
+                      <path d="M13.5 21v-8.25h2.75l.41-3.2h-3.16V7.17c0-.93.26-1.56 1.59-1.56h1.7V2.62c-.29-.04-1.3-.13-2.47-.13-2.45 0-4.13 1.5-4.13 4.25v2.37H7v3.2h2.92V21h3.58Z" />
+                    </svg>
+                  ) : (
+                    item.label
+                  )}
+                </a>
+              </li>
+            );
+          })
         }
       </ul>
     </nav>

@@ -21,3 +21,12 @@ body {
 .prose-content :where(p:first-child) {
   margin-top: 0;
 }
+
+.prose-content :where(h2) {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: var(--color-slate-900);
+}
