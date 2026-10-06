@@ -19,13 +19,18 @@ src/
     site.json           # Club info, contact, announcements, external links
     sponsors.json       # Sponsor tiers and sponsor list
   content/
+    news/               # One Markdown file per news article
     trail-reports/      # One Markdown file per trail report
   components/           # Reusable UI pieces
   layouts/              # Page shell (header, footer)
   pages/                # Routes
 ```
 
-## Updating content (no code required)
+## Content admin (Decap CMS)
+
+Editors with GitHub write access can use **`/admin`** on the deployed site to create news and trail reports via a form UI. See **[docs/decap-cms.md](docs/decap-cms.md)** for OAuth and Cloudflare setup.
+
+## Updating content manually (no CMS)
 
 ### Trail report
 

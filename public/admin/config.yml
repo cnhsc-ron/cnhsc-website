@@ -1,0 +1,77 @@
+# Decap CMS — CNHSC website
+# After deploying, set site_url, display_url, and backend.base_url to your live origin
+# (e.g. https://cnhsc-website.pages.dev). See docs/decap-cms.md.
+
+local_backend: false
+
+site_url: https://cnhsc-website.pages.dev
+display_url: https://cnhsc-website.pages.dev
+logo_url: /images/logos/CNHSC_Logo_Transparent_Trimmed_Small.png
+
+backend:
+  name: github
+  repo: cnhsc-ron/cnhsc-website
+  branch: master
+  base_url: https://cnhsc-website.pages.dev
+  auth_endpoint: api/auth
+
+publish_mode: simple
+
+media_folder: public/images/cms
+public_folder: /images/cms
+
+slug:
+  encoding: "unicode"
+  clean_accents: true
+
+collections:
+  - name: news
+    label: News
+    label_singular: News article
+    folder: src/content/news
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: md
+    format: frontmatter
+    summary: "{{title}} — {{date}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Publish date, name: date, widget: datetime, date_format: YYYY-MM-DD, time_format: false }
+      - { label: Category, name: category, widget: hidden, default: news }
+      - { label: Excerpt, name: excerpt, widget: text, required: false, hint: "Short summary for listing cards" }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: trail-reports
+    label: Trail reports
+    label_singular: Trail report
+    folder: src/content/trail-reports
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: md
+    format: frontmatter
+    summary: "{{title}} — {{date}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Report date, name: date, widget: datetime, date_format: YYYY-MM-DD, time_format: false }
+      - { label: Category, name: category, widget: hidden, default: trail-conditions }
+      - label: Trail status
+        name: status
+        widget: select
+        required: false
+        options:
+          - { label: Open, value: open }
+          - { label: Limited, value: limited }
+          - { label: Closed, value: closed }
+      - { label: Featured sponsor, name: sponsor, widget: string, required: false, hint: "Optional — shown on the report page" }
+      - label: Trail conditions
+        name: trails
+        widget: list
+        required: false
+        summary: "{{fields.name}}: {{fields.condition}}"
+        fields:
+          - { label: Trail name, name: name, widget: string }
+          - { label: Condition, name: condition, widget: string, hint: "e.g. Moderate/Good" }
+          - { label: Notes, name: notes, widget: string, required: false }
+      - { label: Body, name: body, widget: markdown, hint: "Additional notes below the trail list" }
